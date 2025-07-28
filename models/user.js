@@ -1,4 +1,5 @@
 const { Schema,model } = require('mongoose');
+const { createHmac,randomBytes } = require('node:crypto');
 
 const userSchema = new Schema({
   name: {
@@ -34,6 +35,8 @@ const userSchema = new Schema({
 }, {
   timestamps: true  // adds createdAt and updatedAt automatically
 });
+
+
 
 const User =  model('user',userSchema);
 

@@ -1,27 +1,38 @@
-const  express = require('express');
+const express = require('express');
 const path = require('path');
 const mongoose = require("mongoose");
-
+const cookieParser = require('cookie-parser');
 
 const userRoute = require('./routes/user');
+const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 
 const app = express();
 const PORT = 8000;
 
-mongoose.connect('mongodb://localhost:27017/blogify').then((e)=>console.log(`mongodb connected`));
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/blogify')
+    .then(() => console.log(`MongoDB connected`))
+    .catch(err => console.error("MongoDB connection error:", err));
 
-app.set('view engine','ejs');
-app.set('views',path.resolve("./views"));
+// View engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.resolve("./views"));
+
+// Middlewares
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser()); // ❗ CALL this function
+app.use(checkForAuthenticationCookie("token")); // ❗ You fixed this earlier
 
-app.get('/',(req,res)=>{
-    res.render("home");
-
+// Routes
+app.get('/', (req, res) => {
+    res.render("home", {
+        user: req.user // ❗ Use comma `,` not semicolon `;`
+    });
 });
 
-app.use('/user',userRoute);
+app.use('/user', userRoute);
 
-app.listen(PORT, ()=>{
-    console.log(`Sever started at PORT:${PORT}`);
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server started at PORT: ${PORT}`);
 });
-

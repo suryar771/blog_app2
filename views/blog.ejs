@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= blog.title %></title>
+    <style>
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .author-info img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .blog-content {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <!-- Blog Author Info -->
+    <div class="author-info container mt-4">
+        <img src="<%= blog.createdBy.profileImageURL %>" width="50px" height="50px" alt="Author Image">
+        <strong><%= blog.createdBy.fullName %></strong>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="blog-content container mt-4">
+        <h1><%= blog.title %></h1>
+        <img src="<%= blog.coverImageURL %>" width="700px" />
+        <pre><%= blog.body %></pre>
+    </div>
+
+    <%- include('./partials/scripts') %>
+</body>
+</html>

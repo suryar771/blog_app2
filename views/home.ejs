@@ -51,6 +51,7 @@
          <div class="blog-content">
            <div class="blog-title"><%= blog.title %></div>
            <div class="blog-body"><%= blog.body.substring(0, 100) %>...</div>
+           <a href="/blog/<%= blog._id %>" class="btn btn-primary" style="margin-top: 10px; display: inline-block;">View</a>
          </div>
        </div>
      <% }) %>

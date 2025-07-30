@@ -3,12 +3,59 @@
 <head>
    <%- include('./partials/head') %>
    <title>Homepage</title>
+   <style>
+     .blog-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+     }
 
+     .blog-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+     }
 
+     .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+     }
+
+     .blog-content {
+        padding: 15px;
+     }
+
+     .blog-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+     }
+
+     .blog-body {
+        font-size: 0.95rem;
+        color: #333;
+     }
+   </style>
 </head>
 <body>
-    <%- include('./partials/nav') %>
-    <%= JSON.stringify(user) %>
-    <%- include('./partials/scripts') %>
+   <%- include('./partials/nav') %>
+
+   <div class="blog-container">
+     <% blogs.forEach(blog => { %>
+       <div class="blog-card">
+         <img src="<%= blog.coverImageURL %>" alt="Cover Image" class="blog-image" />
+         <div class="blog-content">
+           <div class="blog-title"><%= blog.title %></div>
+           <div class="blog-body"><%= blog.body.substring(0, 100) %>...</div>
+         </div>
+       </div>
+     <% }) %>
+   </div>
+
+   <%- include('./partials/scripts') %>
 </body>
 </html>
